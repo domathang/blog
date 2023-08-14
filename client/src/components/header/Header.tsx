@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import menuSrc from "../../menu.svg";
-import { useEffect, useState } from "react";
+import menuSrc from "../../icon _menu_.svg";
+import { useState } from "react";
 import Sidebar from "./Sidebar";
 
 const HeaderContainer = styled.div`
@@ -44,13 +44,13 @@ const HeaderBtn = styled.span`
 `;
 
 const Header = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  
+  const [isMenuClicked, setIsMenuClicked] = useState(false);
+
   return (
     <HeaderContainer>
-      <Sidebar/>
+      {isMenuClicked ? <Sidebar setIsMenuClicked={setIsMenuClicked} /> : null}
       <HeaderLeft>
-        <MenuIcon onClick={() => setIsVisible(!isVisible)}></MenuIcon>
+        <MenuIcon onClick={() => setIsMenuClicked(true)}></MenuIcon>
       </HeaderLeft>
       <HeaderRight>
         <BtnContainer>

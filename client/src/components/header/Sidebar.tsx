@@ -7,9 +7,11 @@ import {
   StyledCategory,
   CategoryItem,
   StyledButton,
+  StyledNotSidebarBackground,
+  StyledListInSidebar,
 } from "./style";
 
-const Sidebar = () => {
+const Sidebar = (props) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const Category = (props) => {
@@ -18,22 +20,28 @@ const Sidebar = () => {
 
   return (
     <StyledSidebar>
-      <StyledLogo src="img/joe.jpeg" />
+      <StyledListInSidebar>
+        <StyledLogo src="img/joe.jpeg" />
 
-      <StyledTitle>Dony log</StyledTitle>
+        <StyledTitle>Dony log</StyledTitle>
 
-      <StyledCategories>
-        <StyledButton onClick={() => setIsClicked(!isClicked)}>
-          <Category text="First item"></Category>
-        </StyledButton>
-        {isClicked ? (
-          <CategoryItem>
-            <a href="twitch.tv">twitch</a>
-          </CategoryItem>
-        ) : null}
-        <Category text="Second item" />
-        <Category text="Third item" />
-      </StyledCategories>
+        <StyledCategories>
+          <StyledButton onClick={() => setIsClicked(!isClicked)}>
+            <Category text="First item"></Category>
+          </StyledButton>
+          {isClicked ? (
+            <CategoryItem>
+              <a href="twitch.tv">twitch</a>
+            </CategoryItem>
+          ) : null}
+          <Category text="Second item" />
+          <Category text="Third item" />
+        </StyledCategories>
+      </StyledListInSidebar>
+
+      <StyledNotSidebarBackground
+        onClick={() => props.setIsMenuClicked(false)}
+      />
     </StyledSidebar>
   );
 };

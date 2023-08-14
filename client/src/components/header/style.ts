@@ -2,6 +2,10 @@ import styled from "styled-components";
 
 export const StyledSidebar = styled.div`
   display: flex;
+`;
+
+export const StyledListInSidebar = styled.div`
+  display: flex;
   position: fixed;
   left: 0;
   width: 300px;
@@ -10,7 +14,15 @@ export const StyledSidebar = styled.div`
   margin: 0;
   text-align: center;
   border-right: 1px solid black;
-  background-color: rgb(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255);
+`;
+
+export const StyledNotSidebarBackground = styled.div`
+  position: fixed;
+  left: 300px;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.5);
 `;
 
 export const StyledLogo = styled.img`
