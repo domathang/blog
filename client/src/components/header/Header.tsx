@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import menuSrc from "../../icon _menu_.svg";
+import logo from "../../closet.png";
 import { useState } from "react";
 import Sidebar from "./Sidebar";
 
 const HeaderContainer = styled.div`
   display: flex;
-  height: 63px;
+  height: 120px;
   width: 100%;
   padding: 0px 60px;
 `;
@@ -30,6 +31,10 @@ const MenuIcon = styled.span`
   cursor: pointer;
 `;
 
+const Logo = styled.img`
+  cursor: pointer;
+`;
+
 const BtnContainer = styled.div`
   display: flex;
   width: 73px;
@@ -38,7 +43,7 @@ const BtnContainer = styled.div`
 `;
 
 const HeaderBtn = styled.span`
-  color: white;
+  color: black;
   font-size: 12px;
   cursor: pointer;
 `;
@@ -52,6 +57,7 @@ const Header = () => {
       <HeaderLeft>
         <MenuIcon onClick={() => setIsMenuClicked(true)}></MenuIcon>
       </HeaderLeft>
+      <Logo src={logo}/>
       <HeaderRight>
         <BtnContainer>
           <HeaderBtn onClick={() => console.log("Join")}>Join</HeaderBtn>
