@@ -8,7 +8,7 @@ const HeaderContainer = styled.div`
   display: flex;
   height: 120px;
   width: 100%;
-  padding: 0px 60px;
+  padding: 20px 60px;
 `;
 
 const HeaderLeft = styled.section`

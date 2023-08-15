@@ -7,13 +7,13 @@ const ContentContainer = styled.div`
   text-align: center;
   justify-content: center;
   margin: 30px;
-  width: 200px;
-  height: 200px;
+  width: 440px;
+  height: 440px;
 `;
 
 const ThumbnailDiv = styled.div`
-  height: 200px;
-  width: 200px;
+  height: 400px;
+  width: 400px;
   background-size: cover;
   background-repeat: no-repeat;
 `;
@@ -38,8 +38,8 @@ const Post = () => {
           backgroundImage: `url(https://cdn.imweb.me/thumbnail/20230425/de992e2de2480.jpg)`,
         }}
       ></ThumbnailDiv>
-      <Title>어떻게 하면 간절해보일까</Title>
-      <Etc>23.05.22</Etc>
+      <Title>BOI hoodie</Title>
+      <Etc>43,000원</Etc>
     </ContentContainer>
   );
 };

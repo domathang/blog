@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Post from "../blog/Post";
+import addBtn from "../../add_btn.png";
 
 const ItemContainer = styled.div`
   width: 80%;
@@ -16,6 +17,12 @@ const ItemWrap = styled.div`
   */
 `;
 
+const AddBtn = styled.img`
+  width: 70px;
+  height: 70px;
+  margin: 215px;
+`;
+
 const MainItemContainer = () => {
   return (
     <ItemContainer>
@@ -25,7 +32,7 @@ const MainItemContainer = () => {
         <Post />
         <Post />
         <Post />
-        <Post />
+        <AddBtn src={addBtn} />
       </ItemWrap>
     </ItemContainer>
   );
