@@ -8,6 +8,7 @@ export const StyledListInSidebar = styled.div`
   display: flex;
   position: fixed;
   left: 0;
+  top: 0;
   width: 300px;
   height: 100vh;
   flex-direction: column;
@@ -20,6 +21,7 @@ export const StyledListInSidebar = styled.div`
 export const StyledNotSidebarBackground = styled.div`
   position: fixed;
   left: 300px;
+  top: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgb(0, 0, 0, 0.5);
