@@ -1,11 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import MainBackground from "./components/container/MainBackground";
 import styled from "styled-components";
 import MainItemContainer from "./components/container/MainItemContainer";
 import Footer from "./components/footer/footer";
 import Header from "./components/header/Header";
+import GlobalStyle from "./GlobalStyle";
 
 const PaddingContainer = styled.div`
   height: 200px;
@@ -14,14 +14,16 @@ const PaddingContainer = styled.div`
 
 function App() {
   return (
-    <BrowserRouter>
-      <Header />
-      <PaddingContainer />
-      <MainItemContainer />
-      <PaddingContainer />
-      <PaddingContainer />
-      <Footer />
-    </BrowserRouter>
+    <>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Header />
+        <MainItemContainer />
+        <PaddingContainer />
+        <PaddingContainer />
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
 
