@@ -14,21 +14,20 @@ const FilterBtn = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  overflow: hidden;
   display: flex;
   justify-content: center;
+  font-size: 16px;
+  overflow: hidden;
 `;
 
 const FilterDiv = styled.div`
   text-align: center;
-  width: 80%;
 
   @keyframes slide-fade-in-dropdown {
     from {
       transform: translateY(-225px);
       height: 0px;
     }
-
     to {
       transform: translateY(0%);
       height: 225px;
@@ -59,10 +58,9 @@ const FilterDiv = styled.div`
 
 const FilterRow = styled.div`
   display: flex;
-  justify-content: center;
   height: 45px;
   align-items: center;
-  overflow: scroll;
+  overflow: hidden;
   white-space: nowrap;
 `;
 
@@ -77,6 +75,7 @@ const FilterOptionItem = styled.button<{ $selected?: boolean }>`
   white-space: nowrap;
   background-color: ${(props) => (props.$selected ? "lightgray" : "white")};
   transition: background-color 0.5s linear;
+
   :hover {
     background-color: lightgray;
   }
@@ -84,24 +83,27 @@ const FilterOptionItem = styled.button<{ $selected?: boolean }>`
 
 const OptionAll = styled(FilterOptionItem)`
   margin: 0 10px;
+  width: 150px;
 `;
 
 const ColorOption = styled.button<{ $color?: string }>`
   background-color: ${(props) => (props.$color ? props.$color : "black")};
   width: 16px;
   height: 16px;
+  border: 2px outset buttonborder;
   padding: 0;
   margin: 0 2px;
-  border: 2px outset buttonborder;
 `;
 
 const ColorOptionBox = styled.div<{ $selected?: boolean }>`
+  width: 24px;
   height: 24px;
   margin: 0 10px;
   transition: border-color 0.1s linear;
   border-width: 2px;
   border-style: solid;
   border-color: ${(props) => (props.$selected ? "black" : "white")};
+  
   :hover {
     border-color: black;
   }
@@ -109,8 +111,7 @@ const ColorOptionBox = styled.div<{ $selected?: boolean }>`
 
 const FilterOptionItems = styled.div`
   display: flex;
-  justify-content: center;
-  width: 60%;
+  align-items: center;
 `;
 
 const Filter = () => {
@@ -143,8 +144,8 @@ const Filter = () => {
           >
             <FilterRow>
               <FilterTitle>종류</FilterTitle>
-              <OptionAll>전체</OptionAll>
               <FilterOptionItems>
+                <OptionAll>전체</OptionAll>
                 <FilterOptionItem>아우터(10)</FilterOptionItem>
                 <FilterOptionItem $selected={true}>상의(45)</FilterOptionItem>
                 <FilterOptionItem>하의(20)</FilterOptionItem>
@@ -156,8 +157,8 @@ const Filter = () => {
             </FilterRow>
             <FilterRow>
               <FilterTitle>색상</FilterTitle>
-              <OptionAll>전체</OptionAll>
               <FilterOptionItems>
+                <OptionAll>전체</OptionAll>
                 <ColorOptionBox>
                   <ColorOption $color="black"></ColorOption>
                 </ColorOptionBox>
@@ -201,8 +202,8 @@ const Filter = () => {
             </FilterRow>
             <FilterRow>
               <FilterTitle>구매 일자</FilterTitle>
-              <OptionAll>전체</OptionAll>
               <FilterOptionItems>
+                <OptionAll>전체</OptionAll>
                 <FilterOptionItem>1개월</FilterOptionItem>
                 <FilterOptionItem $selected={true}>3개월</FilterOptionItem>
                 <FilterOptionItem>1년</FilterOptionItem>
@@ -210,8 +211,8 @@ const Filter = () => {
             </FilterRow>
             <FilterRow>
               <FilterTitle>구매한 가격</FilterTitle>
-              <OptionAll $selected={true}>전체</OptionAll>
               <FilterOptionItems>
+                <OptionAll $selected={true}>전체</OptionAll>
                 <FilterOptionItem>5만원 이하</FilterOptionItem>
                 <FilterOptionItem>5만원 ~ 10만원</FilterOptionItem>
                 <FilterOptionItem>10만원 ~ 20만원</FilterOptionItem>
@@ -221,8 +222,8 @@ const Filter = () => {
             </FilterRow>
             <FilterRow>
               <FilterTitle>브랜드</FilterTitle>
-              <OptionAll>전체</OptionAll>
               <FilterOptionItems>
+                <OptionAll>전체</OptionAll>
                 <FilterOptionItem $selected={true}>토니웩</FilterOptionItem>
                 <FilterOptionItem>브랜디드</FilterOptionItem>
                 <FilterOptionItem>유니클로</FilterOptionItem>
