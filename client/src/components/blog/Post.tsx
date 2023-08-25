@@ -11,9 +11,6 @@ const ContentContainer = styled.div`
   height: min-content;
   transition: all 0.5s linear;
   cursor: pointer;
-  :hover {
-    transform: scale(1.1, 1.1);
-  }
 `;
 
 const ThumbnailDiv = styled.div`

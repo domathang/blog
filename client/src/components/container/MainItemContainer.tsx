@@ -44,7 +44,7 @@ const FilterRow = styled.div`
   display: flex;
   height: 45px;
   align-items: center;
-  overflow: hidden;
+  overflow: scroll;
   white-space: nowrap;
 `;
 
@@ -57,10 +57,11 @@ const FilterOptionItem = styled.button<{ $selected?: boolean }>`
   margin: 0 10px;
   border: none;
   white-space: nowrap;
+  background-color: ${(props) => (props.$selected ? "lightgray" : "white")};
+  transition: background-color 0.5s linear;
   :hover {
     background-color: lightgray;
   }
-  border-bottom: ${(props) => (props.$selected ? "2px solid black" : "none")};
 `;
 
 const OptionAll = styled(FilterOptionItem)`
@@ -79,7 +80,13 @@ const ColorOption = styled.button<{ $color?: string }>`
 const ColorOptionBox = styled.div<{ $selected?: boolean }>`
   height: 24px;
   margin: 0 10px;
-  border-bottom: ${(props) => (props.$selected ? "2px solid black" : "none")};
+  transition: border-color 0.1s linear;
+  border-width: 2px;
+  border-style: solid;
+  border-color: ${(props) => (props.$selected ? "black" : "white")};
+  :hover {
+    border-color: black;
+  }
 `;
 
 const FilterOptionItems = styled.div`
@@ -95,7 +102,11 @@ const AddBtn = styled.div`
   object-fit: contain;
   width: 70px;
   height: 70px;
-  margin: 195px
+  margin: 195px;
+  transition: transform 0.1s linear;
+  :hover {
+    transform: scale(1.1, 1.1);
+  }
 `;
 
 const MainItemContainer = () => {
