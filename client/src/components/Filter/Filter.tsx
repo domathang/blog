@@ -103,7 +103,7 @@ const ColorOptionBox = styled.div<{ $selected?: boolean }>`
   border-width: 2px;
   border-style: solid;
   border-color: ${(props) => (props.$selected ? "black" : "white")};
-  
+
   :hover {
     border-color: black;
   }

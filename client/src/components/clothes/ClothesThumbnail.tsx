@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import thumbnailSrc from "../../joe.jpeg";
 
 const ContentContainer = styled.div`
   display: flex;
@@ -41,7 +40,7 @@ const BrandName = styled.div`
   font-family: "MusinsaBold";
 `;
 
-const Post = () => {
+const ClothesThumbnail = () => {
   return (
     <ContentContainer>
       <ThumbnailDiv
@@ -56,4 +55,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default ClothesThumbnail;

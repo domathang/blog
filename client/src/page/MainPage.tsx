@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import Post from "../blog/Post";
-import addBtn from "../../add_btn.png";
+import ClothesThumbnail from "../components/clothes/ClothesThumbnail";
+import addBtn from "../add_btn.png";
 import { useState } from "react";
-import Filter from "./Filter";
+import Filter from "../components/Filter/Filter";
 
 const ItemContainer = styled.div`
   width: 80%;
@@ -17,18 +17,6 @@ const ItemWrap = styled.div`
     vw 가 1000px 이하일 때는 아이템이 한 줄에 2개씩 보이도록, 그 외에는 4개로 고정하도록 수정
     & 각 아이템들 vw 에 따라 width 반응형 조절 
   */
-`;
-
-const FilterBtn = styled.div`
-  height: 3px;
-  background-color: black;
-  margin: 5px 0;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: all 0.5s linear;
-  :hover {
-    transform: scale(1.05, 2);
-  }
 `;
 
 const AddBtn = styled.div`
@@ -46,22 +34,22 @@ const AddBtn = styled.div`
   }
 `;
 
-const MainItemContainer = () => {
+const MainPage = () => {
   const [filterVisible, setFilterVisible] = useState(true);
 
   return (
     <ItemContainer>
       <Filter />
       <ItemWrap>
-        <Post />
-        <Post />
-        <Post />
-        <Post />
-        <Post />
+        <ClothesThumbnail />
+        <ClothesThumbnail />
+        <ClothesThumbnail />
+        <ClothesThumbnail />
+        <ClothesThumbnail />
         <AddBtn />
       </ItemWrap>
     </ItemContainer>
   );
 };
 
-export default MainItemContainer;
+export default MainPage;

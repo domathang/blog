@@ -2,9 +2,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
-import MainItemContainer from "./components/container/MainItemContainer";
-import Footer from "./components/footer/footer";
-import Header from "./components/header/Header";
+import MainPage from "./page/MainPage";
+import Footer from "./components/common/Footer";
+import Header from "./components/common/Header";
 import GlobalStyle from "./GlobalStyle";
 
 const PaddingContainer = styled.div`
@@ -19,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<MainItemContainer />} />
+          <Route path="/" element={<MainPage />} />
           <Route path="/clothes" element={<div></div>} />
         </Routes>
         <PaddingContainer />
