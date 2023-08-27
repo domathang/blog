@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-export const StyledSidebar = styled.div`
-  display: flex;
-`;
-
-export const StyledListInSidebar = styled.div`
+export const Container = styled.div`
   display: flex;
   position: fixed;
   left: 0;
@@ -18,7 +14,7 @@ export const StyledListInSidebar = styled.div`
   background-color: rgb(255, 255, 255);
 `;
 
-export const StyledNotSidebarBackground = styled.div`
+export const ExcludeBackground = styled.div`
   position: fixed;
   left: 300px;
   top: 0;
@@ -27,7 +23,7 @@ export const StyledNotSidebarBackground = styled.div`
   background-color: rgb(0, 0, 0, 0.5);
 `;
 
-export const StyledLogo = styled.img`
+export const Logo = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 70%;
@@ -35,13 +31,13 @@ export const StyledLogo = styled.img`
   object-fit: cover;
 `;
 
-export const StyledTitle = styled.span`
+export const Title = styled.span`
   margin-top: 0;
   margin-bottom: 50px;
   font-size: 32px;
 `;
 
-export const StyledCategories = styled.ul`
+export const Categories = styled.ul`
   padding: 0 50px 0 50px;
 `;
 
