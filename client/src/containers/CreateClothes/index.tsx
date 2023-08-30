@@ -10,11 +10,15 @@ type UploadImage = {
 const CreateClothes = () => {
   const [imgFile, setImgFile] = useState<UploadImage | null>(null);
   const onChange = (e) => {
-    const img = e.target.files[0];
-    setImgFile({
-      file: img,
-      thumbnail: URL.createObjectURL(img),
-    });
+    if (!e) {
+      setImgFile(null);
+    } else {
+      const img = e.target.files[0];
+      setImgFile({
+        file: img,
+        thumbnail: URL.createObjectURL(img),
+      });
+    }
   };
 
   return (
@@ -22,6 +26,7 @@ const CreateClothes = () => {
       <S.Container>
         <S.Title>새로운 옷 추가</S.Title>
         <S.ImageInput>
+          <button onClick={() => onChange(null)}>x</button>
           <label htmlFor="ex_file">
             {imgFile ? (
               <img src={imgFile.thumbnail}></img>

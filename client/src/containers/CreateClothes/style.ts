@@ -101,5 +101,19 @@ export const Input = styled.input`
     height: 25px;
     border: none;
   }
+`;
 
+export const SaveBtn = styled.button`
+  border: 1px solid green;
+  border-radius: 15px;
+  background-color: white;
+  text-align: center;
+  width: 82px;
+  color: green;
+  transition: all 0.5s ease-out;
+  margin-top: 30px;
+  :hover {
+    background-color: green;
+    color: white;
+  }
 `;
