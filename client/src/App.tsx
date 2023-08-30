@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import GlobalStyle from "./GlobalStyle";
 import CreateClothes from "./containers/CreateClothes";
+import Login from "./containers/Login";
 
 const PaddingContainer = styled.div`
   height: 200px;
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
+          <Route path="/login" element={<Login/>}></Route>
           <Route path="/" element={<MainPage />} />
           <Route path="/clothes" element={<CreateClothes />} />
         </Routes>
