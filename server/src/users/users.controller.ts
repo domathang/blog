@@ -9,7 +9,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
   
   @Post('/login')
-  async login(@Body() userLoginDto: UserLoginDto): Promise<TokenResponse> {
+  async login(@Body() userLoginDto: UserLoginDto): Promise<string> {
     const loginId = userLoginDto.loginId;
     return this.usersService.login(loginId);
   }

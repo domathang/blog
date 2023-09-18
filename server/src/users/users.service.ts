@@ -3,12 +3,16 @@ import { PrismaService } from '../prisma.service';
 import * as jwt from 'jsonwebtoken';
 import { User } from '@prisma/client';
 import { TokenResponse } from './dto/token.dto';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly configService: ConfigService,
+  ) {}
 
-  async login(loginId: string): Promise<TokenResponse> {
+  async login(loginId: string): Promise<string> {
     const curUser = await this.findUser(loginId);
 
     if (curUser === null) {
@@ -18,13 +22,13 @@ export class UsersService {
       );
     }
 
-    const secretKey = process.env.SECRET_KEY;
+    const secretKey = this.configService.get('SECRET_KEY');
 
     const token = jwt.sign({ id: loginId }, secretKey, {
       expiresIn: '14 days',
     });
 
-    return TokenResponse.of(token);
+    return token;
   }
 
   async createUser(loginId: string): Promise<void> {
