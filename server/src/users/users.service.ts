@@ -4,12 +4,13 @@ import * as jwt from 'jsonwebtoken';
 import { User } from '@prisma/client';
 import { ConfigType } from '@nestjs/config';
 import authConfig from 'src/config/authConfig';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     private prisma: PrismaService,
-    @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
+    private authService: AuthService
   ) {}
 
   async login(loginId: string): Promise<string> {
@@ -22,13 +23,7 @@ export class UsersService {
       );
     }
 
-    const secretKey = this.config.secretKey;
-
-    const token = jwt.sign({ id: loginId }, secretKey, {
-      expiresIn: '14 days',
-    });
-
-    return token;
+    return this.authService.login(curUser);
   }
 
   async createUser(loginId: string): Promise<void> {
