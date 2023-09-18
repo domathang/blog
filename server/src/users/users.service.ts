@@ -1,15 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import * as jwt from 'jsonwebtoken';
 import { User } from '@prisma/client';
-import { TokenResponse } from './dto/token.dto';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
+import authConfig from 'src/config/authConfig';
 
 @Injectable()
 export class UsersService {
   constructor(
     private prisma: PrismaService,
-    private readonly configService: ConfigService,
+    @Inject(authConfig.KEY) private config: ConfigType<typeof authConfig>,
   ) {}
 
   async login(loginId: string): Promise<string> {
@@ -22,7 +22,7 @@ export class UsersService {
       );
     }
 
-    const secretKey = this.configService.get('SECRET_KEY');
+    const secretKey = this.config.secretKey;
 
     const token = jwt.sign({ id: loginId }, secretKey, {
       expiresIn: '14 days',
