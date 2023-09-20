@@ -16,7 +16,7 @@ import { AuthController } from './auth.controller';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
-        secret: config.get<string>('SECRET_KEY'),
+        secret: config.get<string>('SECRET_KEY'), // TODO: Refactor
         signOptions: { expiresIn: '14 days' },
       }),
     }),

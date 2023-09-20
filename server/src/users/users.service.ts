@@ -11,38 +11,38 @@ export class UsersService {
   ) {}
 
   async createUser(loginDto: LoginDto): Promise<void> {
-    const loginId = loginDto.loginId;
+    const username = loginDto.username;
 
-    const curUser = await this.findOne(loginId);
+    const curUser = await this.findOne(username);
 
     if (curUser) {
       throw new HttpException(
-        `ID: ${loginId}, ID duplicated. Try again with other ID`,
+        `ID: ${username}, ID duplicated. Try again with other ID`,
         HttpStatus.CONFLICT,
       );
     }
 
     const password = await this.transformPassword(loginDto.password);
 
-    await this.saveUser(loginId, password);
+    await this.saveUser(username, password);
 
     return;
   }
 
-  findOne = async (loginId: string): Promise<User> => {
+  findOne = async (username: string): Promise<User> => {
     const user = await this.prisma.user.findUnique({
       where: {
-        loginId: loginId,
+        username,
       },
     });
 
     return user;
   };
 
-  private saveUser = async (loginId: string, password: string): Promise<void> => {
+  private saveUser = async (username: string, password: string): Promise<void> => {
     const user = await this.prisma.user.create({
       data: {
-        loginId,
+        username,
         password
       },
     });
