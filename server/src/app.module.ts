@@ -1,22 +1,24 @@
 import { validationSchema } from './config/validationSchema';
 import { Module } from '@nestjs/common';
-import { UsersController } from './users/users.controller';
-import { ClothesController } from './clothes/clothes.controller';
-import { UsersService } from './users/users.service';
-import { PrismaService } from './prisma.service';
 import { ConfigModule } from '@nestjs/config';
 import authConfig from './config/authConfig';
-import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { PrismaModule } from './prisma.module';
+import { ClothesModule } from './clothes/clothes.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: [`${__dirname}/config/env/.${process.env.NODE_ENV}.env`],
       load: [authConfig],
-      validationSchema
+      validationSchema,
     }),
+    AuthModule,
+    UsersModule,
+    PrismaModule,
+    ClothesModule,
   ],
-  controllers: [UsersController, ClothesController],
-  providers: [UsersService, PrismaService, AuthService],
 })
 export class AppModule {}
