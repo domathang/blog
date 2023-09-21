@@ -1,4 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User } from '@prisma/client';
 import { LoginDto } from './dto/login.dto';
@@ -6,21 +9,14 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
-  constructor(
-    private prisma: PrismaService,
-  ) {}
+  constructor(private prisma: PrismaService) {}
 
   async createUser(loginDto: LoginDto): Promise<void> {
     const username = loginDto.username;
 
     const curUser = await this.findOne(username);
 
-    if (curUser) {
-      throw new HttpException(
-        `ID: ${username}, ID duplicated. Try again with other ID`,
-        HttpStatus.CONFLICT,
-      );
-    }
+    if (curUser) throw new ConflictException(`ID: ${username}, ID duplicated.`);
 
     const password = await this.transformPassword(loginDto.password);
 
@@ -39,11 +35,14 @@ export class UsersService {
     return user;
   };
 
-  private saveUser = async (username: string, password: string): Promise<void> => {
+  private saveUser = async (
+    username: string,
+    password: string,
+  ): Promise<void> => {
     const user = await this.prisma.user.create({
       data: {
         username,
-        password
+        password,
       },
     });
   };

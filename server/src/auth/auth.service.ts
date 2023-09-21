@@ -1,5 +1,9 @@
 import { User } from '@prisma/client';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -13,25 +17,15 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, pass: string): Promise<any> {
-    // { TODO: Refactor
     const curUser = await this.userService.findOne(username);
 
-    if (curUser === null) {
-      throw new HttpException(
-        `ID: ${username}, ID not found. Try again`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
+    if (curUser === null)
+      throw new NotFoundException(`ID: ${username}, ID not found.`);
 
     const validatePassword = await bcrypt.compare(pass, curUser.password);
 
-    if (!validatePassword) {
-      throw new HttpException(
-        `ID: ${username}, Wrong password. Try again`,
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-    // }
+    if (!validatePassword)
+      throw new BadRequestException(`ID: ${username}, Wrong password.`);
 
     const { password, ...result } = curUser;
 
