@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import {
   BadRequestException,
   Injectable,
@@ -8,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { TokenResponse } from 'src/users/dto/token.dto';
+import { UserContext } from './decorators/user-context.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +32,7 @@ export class AuthService {
     return result;
   }
 
-  async login(user: User): Promise<TokenResponse> {
+  async login(user: UserContext): Promise<TokenResponse> {
     const payload = { sub: user.id, username: user.username };
 
     return { access_token: this.jwtService.sign(payload) };
