@@ -1,6 +1,6 @@
 import { ClothesKind } from '../enum/clothes-kind';
 
-export class ClothesDTO {
+export class ClothesDto {
   imgUrl: string;
   name: string;
   kind: ClothesKind;

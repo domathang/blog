@@ -12,6 +12,7 @@ export class ClothesService {
   constructor(private prisma: PrismaService) {}
 
   async getMainClothes(userId: number) {
+    // TODO: 필터링(기격, 구매일, 종류, 색, 브랜드) + 페이지네이션
     const clothes = await this.prisma.clothes.findMany({
       where: {
         ownerId: userId,

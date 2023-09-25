@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ClothesService } from './clothes.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ClothesDTO } from './dto/clothes.dto';
+import { ClothesDto } from './dto/clothes.dto';
 import { MainClothesResponse } from './dto/main-clothes.response.dto';
 
 @UseGuards(JwtAuthGuard)
@@ -25,21 +25,20 @@ export class ClothesController {
   }
 
   @Post('/clothes')
-  async createClothes(@Body() body: ClothesDTO) {
+  async createClothes(@Body() body: ClothesDto) {
     return;
   }
 
   @Patch('/clothes/:id')
   async updateClothes(
     @Param('id') clothesId: string,
-    @Body() body: ClothesDTO,
+    @Body() body: ClothesDto,
   ) {
     return;
   }
 
   @Get('/clothes/:id')
   async getClothesDetail(
-    @Headers('AccessToken') accessToken: string,
     @Param('id') clothesId: string,
   ) {
     return;
@@ -47,7 +46,6 @@ export class ClothesController {
 
   @Delete('/clothes/:id')
   async deleteClothes(
-    @Headers('AccessToken') accessToken: string,
     @Param('id') clothesId: string,
   ) {
     return;
