@@ -1,9 +1,9 @@
 export enum ClothesKind {
-  OUTER,
-  TOP,
-  BOTTOM,
-  SHOES,
-  HAT,
-  ACC,
-  INNERWEAR
+  OUTER = 'OUTER',
+  TOP = 'TOP',
+  BOTTOM = 'BOTTOM',
+  SHOES = 'SHOES',
+  HAT = 'HAT',
+  ACC = 'ACC',
+  INNERWEAR = 'INNERWEAR',
 }

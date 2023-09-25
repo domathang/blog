@@ -27,6 +27,7 @@ model Clothes {
   price   Int
   brand   String 
   link    String
+  kind    String
   owner    User?    @relation(fields: [ownerId], references: [id])
   ownerId  Int?
 }
