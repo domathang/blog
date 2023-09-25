@@ -7,33 +7,33 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
-import { MainClothes } from './dto/main-clothes.dto';
-import { Product } from './dto/product.dto';
+import { ClothesService } from './clothes.service';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { ClothesDTO } from './dto/clothes.dto';
+import { MainClothesResponse } from './dto/main-clothes.response.dto';
 
+@UseGuards(JwtAuthGuard)
 @Controller()
 export class ClothesController {
-  @Get('/main/clothes')
-  async getMainClothes(
-    @Headers('AccessToken') accessToken: string,
-  ): Promise<MainClothes> {
-    return;
+  constructor(private clothesService: ClothesService) {}
+
+  @Get('/main/clothes/:userId')
+  async getMainClothes(@Param('userId') userId: number) {
+    return this.clothesService.getMainClothes(userId);
   }
 
   @Post('/clothes')
-  async createClothes(
-    @Headers('AccessToken') accessToken: string,
-    @Body() body: Product,
-  ): Promise<void> {
+  async createClothes(@Body() body: ClothesDTO) {
     return;
   }
 
   @Patch('/clothes/:id')
   async updateClothes(
-    @Headers('AccessToken') accessToken: string,
     @Param('id') clothesId: string,
-    @Body() body: Product,
-  ): Promise<void> {
+    @Body() body: ClothesDTO,
+  ) {
     return;
   }
 
@@ -41,7 +41,7 @@ export class ClothesController {
   async getClothesDetail(
     @Headers('AccessToken') accessToken: string,
     @Param('id') clothesId: string,
-  ): Promise<void> {
+  ) {
     return;
   }
 
@@ -49,7 +49,7 @@ export class ClothesController {
   async deleteClothes(
     @Headers('AccessToken') accessToken: string,
     @Param('id') clothesId: string,
-  ): Promise<void> {
+  ) {
     return;
   }
 }
