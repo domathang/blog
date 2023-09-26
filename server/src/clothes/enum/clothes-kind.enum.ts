@@ -1,4 +1,4 @@
-export enum ClothesKind {
+export enum ClothesKindEnum {
   OUTER = 'OUTER',
   TOP = 'TOP',
   BOTTOM = 'BOTTOM',

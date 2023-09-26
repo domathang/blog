@@ -1,9 +1,9 @@
-import { ClothesKind } from '../enum/clothes-kind';
+import { ClothesKindEnum } from '../enum/clothes-kind.enum';
 
 export class ClothesDto {
   imgUrl: string;
   name: string;
-  kind: ClothesKind;
+  kind: ClothesKindEnum;
   brand: string;
   size: string;
   price: number;

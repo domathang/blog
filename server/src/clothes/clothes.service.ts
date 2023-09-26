@@ -1,26 +1,58 @@
 import { Injectable } from '@nestjs/common';
-import { User } from '@prisma/client';
-import { when } from 'joi';
 import { PrismaService } from 'src/prisma.service';
 import { MainClothesResponse } from './dto/main-clothes.response.dto';
 import { Builder } from 'builder-pattern';
-import { ClothesKind } from './enum/clothes-kind';
-import { classToPlain, instanceToPlain, plainToClass } from 'class-transformer';
+import { ClothesKindEnum } from './enum/clothes-kind.enum';
+import { instanceToPlain } from 'class-transformer';
+import { SortEnum } from './enum/sort.enum';
 
 @Injectable()
 export class ClothesService {
   constructor(private prisma: PrismaService) {}
 
-  async getMainClothes(userId: number) {
-    // TODO: 필터링(기격, 구매일, 종류, 색, 브랜드) + 페이지네이션
+  async getMainClothes(
+    userId: number,
+    offset: number,
+    limit: number,
+    brandFilter: string[],
+    colorFilter: string[],
+    kindFilter: string[],
+    price1: number,
+    price2: number,
+    sort: string,
+    period: string,
+    dateFrom: string,
+    dateTo: string,
+  ) {
+    // 쿼리하는 코드 분리(쿼리 매니저를 만들든 함수로 빼든)
     const clothes = await this.prisma.clothes.findMany({
       where: {
         ownerId: userId,
+        ...(brandFilter ? { brand: { in: brandFilter } } : {}),
+        ...(colorFilter ? { color: { in: colorFilter } } : {}),
+        ...(kindFilter ? { kind: { in: kindFilter } } : {}),
+        price: {
+          gte: price1,
+          lte: price2,
+        },
+        purchaseDate: {
+          gte: new Date(dateFrom),
+          lte: new Date(dateTo),
+        },
       },
       orderBy: {
-        purchaseDate: 'asc',
+        ...(sort === SortEnum.NEW
+          ? { purchaseDate: 'asc' }
+          : sort === SortEnum.OLD
+          ? { purchaseDate: 'desc' }
+          : sort === SortEnum.PRICE_LOW
+          ? { price: 'asc' }
+          : sort === SortEnum.PRICE_HIGH
+          ? { price: 'desc' }
+          : {}),
       },
-      take: 10,
+      skip: offset,
+      take: limit,
     });
 
     const brands = await this.prisma.clothes
@@ -73,13 +105,13 @@ export class ClothesService {
       Builder(MainClothesResponse)
         .colors(colors)
         .brands(brands)
-        .topCnt(resultKindCount[ClothesKind.TOP])
-        .bottomCnt(resultKindCount[ClothesKind.BOTTOM])
-        .outerCnt(resultKindCount[ClothesKind.OUTER])
-        .shoesCnt(resultKindCount[ClothesKind.SHOES])
-        .accCnt(resultKindCount[ClothesKind.ACC])
-        .innerwearCnt(resultKindCount[ClothesKind.INNERWEAR])
-        .hatCnt(resultKindCount[ClothesKind.HAT])
+        .topCnt(resultKindCount[ClothesKindEnum.TOP])
+        .bottomCnt(resultKindCount[ClothesKindEnum.BOTTOM])
+        .outerCnt(resultKindCount[ClothesKindEnum.OUTER])
+        .shoesCnt(resultKindCount[ClothesKindEnum.SHOES])
+        .accCnt(resultKindCount[ClothesKindEnum.ACC])
+        .innerwearCnt(resultKindCount[ClothesKindEnum.INNERWEAR])
+        .hatCnt(resultKindCount[ClothesKindEnum.HAT])
         .clothesList(clothes)
         .build(),
       { excludeExtraneousValues: true },
