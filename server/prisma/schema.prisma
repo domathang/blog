@@ -23,11 +23,12 @@ model Clothes {
   imgUrl  String
   color   String
   size    String
-  purchaseDate  DateTime
+  purchaseDate  DateTime @db.Date
   price   Int
   brand   String 
   link    String
   kind    String
+  createdAt DateTime @default(now())
   owner    User?    @relation(fields: [ownerId], references: [id])
   ownerId  Int?
 }

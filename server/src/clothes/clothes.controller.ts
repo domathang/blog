@@ -75,14 +75,14 @@ export class ClothesController {
   }
 
   @Post('/clothes')
-  async createClothes(@Body() body: ClothesDto) {
-    return;
+  async createClothes(@Body() clothesDto: ClothesDto) {
+    return this.clothesService.createClothes(clothesDto);
   }
 
   @Patch('/clothes/:id')
   async updateClothes(
     @Param('id') clothesId: string,
-    @Body() body: ClothesDto,
+    @Body() clothesDto: ClothesDto,
   ) {
     return;
   }

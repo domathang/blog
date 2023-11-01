@@ -5,6 +5,7 @@ import { Builder } from 'builder-pattern';
 import { ClothesKindEnum } from './enum/clothes-kind.enum';
 import { instanceToPlain } from 'class-transformer';
 import { SortEnum } from './enum/sort.enum';
+import { ClothesDto } from './dto/clothes.dto';
 
 @Injectable()
 export class ClothesService {
@@ -116,5 +117,12 @@ export class ClothesService {
         .build(),
       { excludeExtraneousValues: true },
     );
+  }
+
+  async createClothes(clothesDto: ClothesDto) {
+    const clothes = await this.prisma.clothes.create({
+      data: { ...clothesDto, purchaseDate: new Date(clothesDto.purchaseDate) },
+    });
+    return clothes.id;
   }
 }
