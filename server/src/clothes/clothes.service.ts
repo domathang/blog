@@ -5,7 +5,7 @@ import { Builder } from 'builder-pattern';
 import { ClothesKindEnum } from './enum/clothes-kind.enum';
 import { instanceToPlain } from 'class-transformer';
 import { SortEnum } from './enum/sort.enum';
-import { ClothesDto } from './dto/clothes.dto';
+import { CreateClothesDto, UpdateClothesDto } from './dto/clothes.dto';
 
 @Injectable()
 export class ClothesService {
@@ -119,9 +119,22 @@ export class ClothesService {
     );
   }
 
-  async createClothes(clothesDto: ClothesDto) {
+  async createClothes(dto: CreateClothesDto) {
     const clothes = await this.prisma.clothes.create({
-      data: { ...clothesDto, purchaseDate: new Date(clothesDto.purchaseDate) },
+      data: { ...dto, purchaseDate: new Date(dto.purchaseDate) },
+    });
+    return clothes.id;
+  }
+
+  async updateClothes(clothesId: number, dto: UpdateClothesDto) {
+    const clothes = await this.prisma.clothes.update({
+      where: { id: clothesId },
+      data: {
+        ...dto,
+        ...(dto.purchaseDate
+          ? { purchaseDate: new Date(dto.purchaseDate) }
+          : {}),
+      },
     });
     return clothes.id;
   }

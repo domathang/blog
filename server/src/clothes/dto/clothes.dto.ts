@@ -1,7 +1,8 @@
 import { IsDateString, IsNotEmpty } from 'class-validator';
 import { ClothesKindEnum } from '../enum/clothes-kind.enum';
+import { PartialType } from '@nestjs/mapped-types';
 
-export class ClothesDto {
+export class CreateClothesDto {
   @IsNotEmpty()
   imgUrl: string;
   @IsNotEmpty()
@@ -18,7 +19,9 @@ export class ClothesDto {
   link: string;
   @IsNotEmpty()
   color: string;
-  @IsNotEmpty({groups: ['create']})
+  @IsNotEmpty()
   @IsDateString()
   purchaseDate: string;
 }
+
+export class UpdateClothesDto extends PartialType(CreateClothesDto) {}

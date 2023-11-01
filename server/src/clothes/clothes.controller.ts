@@ -12,13 +12,17 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ClothesService } from './clothes.service';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ClothesDto } from './dto/clothes.dto';
+import { CreateClothesDto, UpdateClothesDto } from './dto/clothes.dto';
 import { SortEnum } from './enum/sort.enum';
 import { ClothesKindEnum } from './enum/clothes-kind.enum';
+import { group } from 'console';
 
 @UseGuards(JwtAuthGuard)
 @Controller()
@@ -75,16 +79,16 @@ export class ClothesController {
   }
 
   @Post('/clothes')
-  async createClothes(@Body() clothesDto: ClothesDto) {
-    return this.clothesService.createClothes(clothesDto);
+  async createClothes(@Body() dto: CreateClothesDto) {
+    return this.clothesService.createClothes(dto);
   }
 
   @Patch('/clothes/:id')
   async updateClothes(
-    @Param('id') clothesId: string,
-    @Body() clothesDto: ClothesDto,
+    @Param('id') clothesId: number,
+    @Body() dto: UpdateClothesDto,
   ) {
-    return;
+    return this.clothesService.updateClothes(clothesId, dto);
   }
 
   @Get('/clothes/:id')
