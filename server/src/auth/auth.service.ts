@@ -20,7 +20,7 @@ export class AuthService {
     const curUser = await this.userService.findOne(username);
 
     if (curUser === null)
-      throw new NotFoundException(`ID: ${username}, ID not found.`);
+      throw new NotFoundException(`ID: ${username}, user not found.`);
 
     const validatePassword = await bcrypt.compare(pass, curUser.password);
 

@@ -23,6 +23,8 @@ import { CreateClothesDto, UpdateClothesDto } from './dto/clothes.dto';
 import { SortEnum } from './enum/sort.enum';
 import { ClothesKindEnum } from './enum/clothes-kind.enum';
 import { group } from 'console';
+import { UserCtx } from 'src/auth/decorators/user-ctx.decorator';
+import { UserContext } from 'src/auth/decorators/user-context.dto';
 
 @UseGuards(JwtAuthGuard)
 @Controller()
@@ -79,8 +81,11 @@ export class ClothesController {
   }
 
   @Post('/clothes')
-  async createClothes(@Body() dto: CreateClothesDto) {
-    return this.clothesService.createClothes(dto);
+  async createClothes(
+    @UserCtx() userCtx: UserContext,
+    @Body() dto: CreateClothesDto,
+  ) {
+    return this.clothesService.createClothes(userCtx.id, dto);
   }
 
   @Patch('/clothes/:id')
@@ -92,12 +97,14 @@ export class ClothesController {
   }
 
   @Get('/clothes/:id')
-  async getClothesDetail(@Param('id') clothesId: string) {
-    return;
+  async getClothesDetail(
+    @Param('id') clothesId: number,
+  ) {
+    return this.clothesService.getClothesDetail(clothesId);
   }
 
   @Delete('/clothes/:id')
-  async deleteClothes(@Param('id') clothesId: string) {
-    return;
+  async deleteClothes(@UserCtx() userCtx: UserContext, @Param('id') clothesId: number) {
+    return this.clothesService.deleteClothes(userCtx.id, clothesId);
   }
 }

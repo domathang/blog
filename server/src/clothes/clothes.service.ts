@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { MainClothesResponse } from './dto/main-clothes.response.dto';
 import { Builder } from 'builder-pattern';
@@ -119,23 +119,47 @@ export class ClothesService {
     );
   }
 
-  async createClothes(dto: CreateClothesDto) {
+  async createClothes(ownerId: number, dto: CreateClothesDto) {
     const clothes = await this.prisma.clothes.create({
-      data: { ...dto, purchaseDate: new Date(dto.purchaseDate) },
+      data: { ...dto, ownerId, purchaseDate: new Date(dto.purchaseDate) },
     });
     return clothes.id;
   }
 
   async updateClothes(clothesId: number, dto: UpdateClothesDto) {
-    const clothes = await this.prisma.clothes.update({
-      where: { id: clothesId },
-      data: {
-        ...dto,
-        ...(dto.purchaseDate
-          ? { purchaseDate: new Date(dto.purchaseDate) }
-          : {}),
-      },
-    });
+    const clothes = await this.prisma.clothes
+      .update({
+        where: { id: clothesId },
+        data: {
+          ...dto,
+          ...(dto.purchaseDate
+            ? { purchaseDate: new Date(dto.purchaseDate) }
+            : {}),
+        },
+      })
+      .catch(() => {
+        throw new NotFoundException(`ID: ${clothesId}, clothes not found.`);
+      });
     return clothes.id;
+  }
+
+  async getClothesDetail(clothesId: number) {
+    const clothes = await this.prisma.clothes.findUnique({
+      where: { id: clothesId },
+    });
+    if (!clothes)
+      throw new NotFoundException(`ID: ${clothesId}, clothes not found.`);
+    return clothes;
+  }
+
+  async deleteClothes(ownerId: number, clothesId: number) {
+    const clothes = await this.prisma.clothes
+      .delete({
+        where: { id: clothesId, ownerId: ownerId },
+      })
+      .catch(() => {
+        throw new NotFoundException(`ID: ${clothesId}, clothes not found.`);
+      });
+    return clothes;
   }
 }
