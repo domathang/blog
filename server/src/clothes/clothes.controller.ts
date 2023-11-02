@@ -62,8 +62,6 @@ export class ClothesController {
     dateFrom: string,
     @Query('dateTo', new DefaultValuePipe(new Date())) dateTo: string,
   ) {
-    // console.log();
-
     return this.clothesService.getMainClothes(
       userId,
       offset,
@@ -97,14 +95,15 @@ export class ClothesController {
   }
 
   @Get('/clothes/:id')
-  async getClothesDetail(
-    @Param('id') clothesId: number,
-  ) {
+  async getClothesDetail(@Param('id') clothesId: number) {
     return this.clothesService.getClothesDetail(clothesId);
   }
 
   @Delete('/clothes/:id')
-  async deleteClothes(@UserCtx() userCtx: UserContext, @Param('id') clothesId: number) {
+  async deleteClothes(
+    @UserCtx() userCtx: UserContext,
+    @Param('id') clothesId: number,
+  ) {
     return this.clothesService.deleteClothes(userCtx.id, clothesId);
   }
 }
