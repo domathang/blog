@@ -1,7 +1,4 @@
-import {
-  ConflictException,
-  Injectable,
-} from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { User } from '@prisma/client';
 import { LoginDto } from './dto/login.dto';
@@ -11,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async createUser(loginDto: LoginDto): Promise<void> {
+  async createUser(loginDto: LoginDto): Promise<User> {
     const username = loginDto.username;
 
     const curUser = await this.findOne(username);
@@ -20,12 +17,10 @@ export class UsersService {
 
     const password = await this.transformPassword(loginDto.password);
 
-    await this.saveUser(username, password);
-
-    return;
+    return await this.saveUser(username, password);
   }
 
-  findOne = async (username: string): Promise<User> => {
+  findOne = async (username: string): Promise<User | null> => {
     const user = await this.prisma.user.findUnique({
       where: {
         username,
@@ -38,8 +33,8 @@ export class UsersService {
   private saveUser = async (
     username: string,
     password: string,
-  ): Promise<void> => {
-    const user = await this.prisma.user.create({
+  ): Promise<User> => {
+    return await this.prisma.user.create({
       data: {
         username,
         password,
